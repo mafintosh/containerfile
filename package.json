@@ -1,0 +1,24 @@
+{
+  "name": "containerfile",
+  "version": "0.0.0",
+  "description": "Containerfile parser and stringifier",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "^10.0.3",
+    "tape": "^4.8.0"
+  },
+  "scripts": {
+    "test": "standard && tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/containerfile.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/containerfile/issues"
+  },
+  "homepage": "https://github.com/mafintosh/containerfile"
+}
