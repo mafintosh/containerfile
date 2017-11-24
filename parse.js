@@ -1,6 +1,8 @@
 module.exports = parse
 
 function parse (src) {
+  src = src.toString()
+
   var result = []
   var ptr = 0
   var cnt = 0
