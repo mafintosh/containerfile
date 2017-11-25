@@ -104,7 +104,7 @@ tape('env', function (t) {
       value: 'value2'
     }]
   }])
-  
+
   t.end()
 })
 
