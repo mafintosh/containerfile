@@ -35,6 +35,7 @@ The format is similar to a `Dockerfile`.
 FROM os:version
 RUN shell-command
 COPY from/local/file /to/container/path
+ENV key=value key2=value2
 ```
 
 Alternatively if you are referencing another `Containerfile` or disk image you can do
@@ -89,6 +90,18 @@ Returns an array of objects, each representing a line.
   type: 'copy',
   from: 'from',
   to: 'to'
+}
+
+// ENV key=value key2="value 2" ...
+{
+  type: 'env',
+  env: [{
+    key: 'key',
+    value: 'value'
+  }, {
+    key: 'key2',
+    value: 'value 2'
+  }]
 }
 ```
 

@@ -39,12 +39,40 @@ function parse (src) {
         var image = path ? null : line.split(':')[0]
         var version = path ? null : line.split(':')[1] || null
         return {type: type, image: image, version: version, path: path}
+      case 'env':
+        return {type: type, env: parseKeyValue()}
       case 'run':
         return {type: type, command: line}
       case 'copy':
         return {type: type, from: parseString(), to: parseString()}
       default:
         throw new Error('Unknown type: ' + type + ' at line ' + cnt)
+    }
+
+    function parseKeyValue () {
+      var env = []
+      var i = line.indexOf('=', ptr)
+      var space = line.indexOf(' ', ptr)
+
+      if (i === -1 || (space < i && space > -1)) {
+        // ENV NAME VALUE
+        env.push({key: parseString(), value: parseString()})
+      } else {
+        // ENV NAME=VALUE
+        while (ptr < line.length) {
+          env.push({key: parseKey(), value: parseString()})
+        }
+      }
+
+      return env
+    }
+
+    function parseKey () {
+      var i = line.indexOf('=', ptr)
+      if (i === -1) throw new Error('Expected key=value at line ' + cnt)
+      var key = line.slice(ptr, i).trim()
+      ptr = i + 1
+      return key
     }
 
     function parseString () {

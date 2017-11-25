@@ -77,6 +77,37 @@ tape('other from', function (t) {
   t.end()
 })
 
+tape('env', function (t) {
+  t.same(parse('ENV key value'), [{
+    type: 'env',
+    env: [{
+      key: 'key',
+      value: 'value'
+    }]
+  }])
+
+  t.same(parse('ENV key=value'), [{
+    type: 'env',
+    env: [{
+      key: 'key',
+      value: 'value'
+    }]
+  }])
+
+  t.same(parse('ENV key1=value1 key2=value2'), [{
+    type: 'env',
+    env: [{
+      key: 'key1',
+      value: 'value1'
+    }, {
+      key: 'key2',
+      value: 'value2'
+    }]
+  }])
+  
+  t.end()
+})
+
 tape('stringify', function (t) {
   t.same(stringify([{type: 'from', image: 'arch'}]), 'FROM arch\n')
 
@@ -90,9 +121,18 @@ tape('stringify', function (t) {
     type: 'copy',
     from: 'a',
     to: 'b'
+  }, {
+    type: 'env',
+    env: [{
+      key: 'hello',
+      value: 'world'
+    }, {
+      key: 'key',
+      value: 'bunch of spaces'
+    }]
   }]
 
-  t.same(stringify(input), 'FROM "./foo"\nRUN echo hello\nCOPY "a" "b"\n')
+  t.same(stringify(input), 'FROM "./foo"\nRUN echo hello\nCOPY "a" "b"\nENV hello="world" key="bunch of spaces"\n')
   t.same(noNull(parse(stringify(input))), input)
   t.end()
 })
