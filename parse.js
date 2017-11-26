@@ -43,7 +43,7 @@ function parse (src) {
         return {type: type, env: parseKeyValue()}
       case 'arg':
         return parseArg()
-       case 'run':
+      case 'run':
         return {type: type, command: line}
       case 'copy':
         return {type: type, from: parseString(), to: parseString()}
