@@ -77,6 +77,19 @@ tape('other from', function (t) {
   t.end()
 })
 
+tape('arg', function (t) {
+  t.same(parse('ARG foo=bar\nARG foo'), [{
+    type: 'arg',
+    key: 'foo',
+    value: 'bar'
+  }, {
+    type: 'arg',
+    key: 'foo',
+    value: null
+  }])
+  t.end()
+})
+
 tape('env', function (t) {
   t.same(parse('ENV key value'), [{
     type: 'env',
@@ -115,6 +128,10 @@ tape('stringify', function (t) {
     type: 'from',
     path: './foo'
   }, {
+    type: 'arg',
+    key: 'foo',
+    value: 'bar'
+  }, {
     type: 'run',
     command: 'echo hello'
   }, {
@@ -132,7 +149,7 @@ tape('stringify', function (t) {
     }]
   }]
 
-  t.same(stringify(input), 'FROM "./foo"\nRUN echo hello\nCOPY "a" "b"\nENV hello="world" key="bunch of spaces"\n')
+  t.same(stringify(input), 'FROM "./foo"\nARG foo="bar"\nRUN echo hello\nCOPY "a" "b"\nENV hello="world" key="bunch of spaces"\n')
   t.same(noNull(parse(stringify(input))), input)
   t.end()
 })

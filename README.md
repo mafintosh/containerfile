@@ -36,6 +36,7 @@ FROM os:version
 RUN shell-command
 COPY from/local/file /to/container/path
 ENV key=value key2=value2
+ARG key=value
 ```
 
 Alternatively if you are referencing another `Containerfile` or disk image you can do
@@ -102,6 +103,20 @@ Returns an array of objects, each representing a line.
     key: 'key2',
     value: 'value 2'
   }]
+}
+
+// ARG key=value
+{
+  type: 'arg',
+  key: 'key',
+  value: 'value'
+}
+
+// ARG key
+{
+  type: 'arg',
+  key: 'key',
+  value: null
 }
 ```
 

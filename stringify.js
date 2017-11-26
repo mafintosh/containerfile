@@ -12,6 +12,8 @@ function stringify (parsed) {
         return prefix + 'RUN ' + cmd.command + '\n'
       case 'env':
         return prefix + 'ENV ' + cmd.env.map(toKeyValue).join(' ') + '\n'
+      case 'arg':
+        return prefix + 'ARG ' + cmd.key + (cmd.value ? '=' + JSON.stringify(cmd.value) : '') + '\n'
       case 'copy':
         return prefix + 'COPY ' + JSON.stringify(cmd.from) + ' ' + JSON.stringify(cmd.to) + '\n'
       default:

@@ -41,12 +41,21 @@ function parse (src) {
         return {type: type, image: image, version: version, path: path}
       case 'env':
         return {type: type, env: parseKeyValue()}
-      case 'run':
+      case 'arg':
+        return parseArg()
+       case 'run':
         return {type: type, command: line}
       case 'copy':
         return {type: type, from: parseString(), to: parseString()}
       default:
         throw new Error('Unknown type: ' + type + ' at line ' + cnt)
+    }
+
+    function parseArg () {
+      // ARG NAME=VALUE?
+      var i = line.indexOf('=', ptr)
+      if (i === -1) return {type: 'arg', key: parseString(), value: null}
+      return {type: 'arg', key: parseKey(), value: parseString()}
     }
 
     function parseKeyValue () {
