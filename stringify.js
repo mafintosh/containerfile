@@ -10,6 +10,10 @@ function stringify (parsed) {
         return prefix + 'FROM ' + cmd.image + (cmd.version ? ':' + cmd.version : '') + '\n'
       case 'run':
         return prefix + 'RUN ' + cmd.command + '\n'
+      case 'cmd':
+        return prefix + 'CMD ' + cmd.command + '\n'
+      case 'mount':
+        return prefix + 'MOUNT ' + cmd.command + '\n'
       case 'env':
         return prefix + 'ENV ' + cmd.env.map(toKeyValue).join(' ') + '\n'
       case 'arg':

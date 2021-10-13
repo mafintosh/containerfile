@@ -45,6 +45,10 @@ function parse (src) {
         return parseArg()
       case 'run':
         return {type: type, command: line}
+      case 'cmd':
+        return {type: type, command: line}
+      case 'mount':
+        return {type: type, from: parseString(), to: parseString()}
       case 'copy':
         return {type: type, from: parseString(), to: parseString()}
       default:
