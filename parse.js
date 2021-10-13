@@ -41,6 +41,8 @@ function parse (src) {
         return {type: type, image: image, version: version, path: path}
       case 'env':
         return {type: type, env: parseKeyValue()}
+      case 'user':
+        return {type: type, user: parseString()}
       case 'arg':
         return parseArg()
       case 'run':

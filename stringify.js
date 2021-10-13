@@ -14,6 +14,8 @@ function stringify (parsed) {
         return prefix + 'CMD ' + cmd.command + '\n'
       case 'mount':
         return prefix + 'MOUNT ' + cmd.command + '\n'
+      case 'user':
+        return prefix + 'USER ' + cmd.user + '\n'
       case 'env':
         return prefix + 'ENV ' + cmd.env.map(toKeyValue).join(' ') + '\n'
       case 'arg':
